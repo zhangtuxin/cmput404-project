@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Profile</title>
+    <link rel="stylesheet" type="text/css" href="profile.css">
+
+</head>
+
+<body>
+    <div class="profile">
+        {% if me.photo %}
+            <img alt="user photo" src="{{ MEDIA_URL }}//{{ me.photo }}" height="200" width="200">
+        {% else %}
+            <img alt="user photo" src="/images/defaultUserImage.png">
+        {% endif %}
+        <br/><br/>
+
+        <table><tbody>
+              <tr><td>Username</td><td>{{ me.username }}</td><tr>
+              <tr><td>Email</td>
+                  <td>{% if me.email %} {{ me.email }}
+                      {% else %} n/a
+                      {% endif %}</td><tr>
+
+              <tr><td>Github</td>
+                <td>{% if me.github %} {{ me.github }}
+                    {% else %} n/a
+                    {% endif %}</td><tr>
+
+              <tr><td>Bio</td>
+                <td>{% if me.bio %} {{ me.bio }}
+                    {% else %} n/a
+                    {% endif %}</td><tr>
+       </tbody></table>
+    </div>
+    <br/>
+
+    <button id="show" class="editProfile">Edit Profile</button>
+    <button id="show" class="uploadPhoto">Upload Photo</button>
+
+
+</body>
