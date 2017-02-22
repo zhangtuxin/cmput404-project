@@ -1,21 +1,21 @@
-from myapp.forms import ProfileForm
-from myapp.models import Profile
+from django.http import HttpResponse
+from django.shortcuts import render
+import os
 
-def SaveProfile(request):
-    save = false
+def home(request):
+    return render(request, 'profile/upload.html', {'what':'Django File Upload'})
 
-    if request.method = "post":
-        # Get the posted form
-        MyProfileForm = ProfileForm(request.POST, request.FILES)
+def upload(request):
+    if request.method == 'POST':
+        handle_uploaded_file(request.FILES['file'], str(request.FILES['file']))
+        return HttpResponse("Successful")
 
-        if MyProfileForm.is_valid():
-            profile = Profile()
-            profile.name = MyProfileForm.cleaned_data["name"]
-            profile.picture = MyProfileForm.cleaned_data["picture"]
-            profile.save()
-            save = true
+    return HttpResponse("Failed")
 
-        else:
-            MyProfileForm = ProfileForm()
+def handle_uploaded_file(file, filename):
+    if not os.path.exists('upload/'):
+        os.mkdir('upload/')
 
-        return render(request, "save.html", locals())
+    with open('upload/' + filename, 'wb+') as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
