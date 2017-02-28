@@ -9,30 +9,35 @@
 
 <body>
     <div class="profile">
+
         {% if me.photo %}
             <img alt="user photo" src="{{ MEDIA_URL }}//{{ me.photo }}" height="200" width="200">
         {% else %}
-            <img alt="user photo" src="/images/defaultUserImage.png">
+            <img alt="user photo" src="profile/images/defaultUserImage.png">
         {% endif %}
         <br/><br/>
-
+	
+	{% for me in myUser%}
+	      {% if userName == me.userName %}
         <table><tbody>
-              <tr><td>Username</td><td>{{ me.username }}</td><tr>
+              <tr><td>Username</td><td>{{ userName }}</td><tr>
               <tr><td>Email</td>
-                  <td>{% if me.email %} {{ me.email }}
+                  <td>{% if me.Email %} {{ me.Email }}
                       {% else %} n/a
                       {% endif %}</td><tr>
 
               <tr><td>Github</td>
-                <td>{% if me.github %} {{ me.github }}
+                <td>{% if me.Github %} {{ me.Github }}
                     {% else %} n/a
                     {% endif %}</td><tr>
 
               <tr><td>Bio</td>
-                <td>{% if me.bio %} {{ me.bio }}
+                <td>{% if me.Bio %} {{ me.Bio }}
                     {% else %} n/a
                     {% endif %}</td><tr>
        </tbody></table>
+		{% endif %}
+	{%endfor%}
     </div>
     <br/>
 
